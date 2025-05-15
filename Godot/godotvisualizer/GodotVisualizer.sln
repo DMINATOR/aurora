@@ -1,12 +1,17 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.36105.23 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GodotVisualizer", "GodotVisualizer.csproj", "{EBA36D13-FC9D-44E5-BB1D-C824B9446458}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraLib", "..\..\Aurora\AuroraLib\AuroraLib.csproj", "{BF6D63FA-8285-C713-C436-BCCE224322E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-	Debug|Any CPU = Debug|Any CPU
-	ExportDebug|Any CPU = ExportDebug|Any CPU
-	ExportRelease|Any CPU = ExportRelease|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EBA36D13-FC9D-44E5-BB1D-C824B9446458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -15,5 +20,14 @@ Global
 		{EBA36D13-FC9D-44E5-BB1D-C824B9446458}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{EBA36D13-FC9D-44E5-BB1D-C824B9446458}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{EBA36D13-FC9D-44E5-BB1D-C824B9446458}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{BF6D63FA-8285-C713-C436-BCCE224322E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF6D63FA-8285-C713-C436-BCCE224322E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF6D63FA-8285-C713-C436-BCCE224322E7}.ExportDebug|Any CPU.ActiveCfg = Release|Any CPU
+		{BF6D63FA-8285-C713-C436-BCCE224322E7}.ExportDebug|Any CPU.Build.0 = Release|Any CPU
+		{BF6D63FA-8285-C713-C436-BCCE224322E7}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{BF6D63FA-8285-C713-C436-BCCE224322E7}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
