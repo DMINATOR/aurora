@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace AuroraLib.AI
 {
+    /// <summary>
+    /// I am assuming there should only be one instance running at all times. Might as well make it Singleton later?
+    /// </summary>
     public class AiServer : IDisposable
     {
         private Process? _process;
@@ -25,11 +28,7 @@ namespace AuroraLib.AI
 
         public void Dispose()
         {
-            if (_process != null)
-            {
-                _process.Dispose();
-                _process = null;
-            }
+            Stop();
         }
 
         public bool IsRunning()
