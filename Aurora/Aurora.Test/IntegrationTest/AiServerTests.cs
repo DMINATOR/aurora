@@ -1,11 +1,10 @@
 ﻿using Aurora.Test.Constants;
 using AuroraLib.AI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xunit;
 using Xunit.Abstractions;
+
+// Disable parallel test execution for this class
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
 
 namespace Aurora.Test.IntegrationTest
 {
@@ -18,6 +17,24 @@ namespace Aurora.Test.IntegrationTest
         {
             _output = output;
             _server = new AuroraLib.AI.AiServer(DirectoryPathsForTests.GetOllamaPath());
+
+            // Assign delegates for output sinks
+            _server.OutputSink = (message) =>
+            {
+                if (message != null)
+                {
+                    _output.WriteLine($"{message}");
+                }
+            };
+
+            _server.ErrorSink = (message) =>
+            {
+                if (message != null)
+                {
+                    _output.WriteLine($"[ERROR]: {message}");
+                }
+            };
+
             _output.WriteLine("[TEST] - AiServer instance created.");
         }
 
@@ -43,7 +60,7 @@ namespace Aurora.Test.IntegrationTest
             _server.Start();
 
             // Assert
-            Assert.NotNull(_server);
+            Assert.True(_server.IsRunning());
         }
 
 
@@ -57,7 +74,7 @@ namespace Aurora.Test.IntegrationTest
             _server.Stop();
 
             // Assert
-            Assert.Null(_server);
+            Assert.False(_server.IsRunning());
         }
     }
 }
