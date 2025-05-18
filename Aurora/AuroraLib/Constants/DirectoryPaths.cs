@@ -16,6 +16,11 @@ namespace AuroraLib.Constants
             return AppDomain.CurrentDomain.BaseDirectory;
         }
 
+        public static string GetOllamaPath()
+        {
+            return System.IO.Path.Combine(GetCurrentPath(), "Ollama", "ollama.exe");
+        }
+
         public static string GetAiModelPath()
         {
             return System.IO.Path.Combine(GetCurrentPath(), "Models", "AiModel.onnx");
