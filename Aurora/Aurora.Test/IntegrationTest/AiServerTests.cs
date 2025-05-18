@@ -1,4 +1,5 @@
-﻿using AuroraLib.AI;
+﻿using Aurora.Test.Constants;
+using AuroraLib.AI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Aurora.Test.IntegrationTest
         public AiServerTests(ITestOutputHelper output)
         {
             _output = output;
-            _server = new AuroraLib.AI.AiServer();
+            _server = new AuroraLib.AI.AiServer(DirectoryPathsForTests.GetOllamaPath());
             _output.WriteLine("[TEST] - AiServer instance created.");
         }
 
@@ -37,13 +38,12 @@ namespace Aurora.Test.IntegrationTest
         public void TestStartServer()
         {
             // Arrange
-            var server = new AuroraLib.AI.AiServer();
 
             // Act
-            server.Start();
+            _server.Start();
 
             // Assert
-            Assert.NotNull(server);
+            Assert.NotNull(_server);
         }
 
 
@@ -51,14 +51,13 @@ namespace Aurora.Test.IntegrationTest
         public void TestStopServer()
         {
             // Arrange
-            var server = new AuroraLib.AI.AiServer();
-            server.Start();
+            _server.Start();
 
             // Act
-            server.Stop();
+            _server.Stop();
 
             // Assert
-            Assert.Null(server);
+            Assert.Null(_server);
         }
     }
 }

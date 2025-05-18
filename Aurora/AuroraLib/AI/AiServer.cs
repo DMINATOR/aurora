@@ -11,9 +11,17 @@ namespace AuroraLib.AI
     {
         private Process? _process;
 
+        private string _pathToOllama;
+
         // Public delegates for output sinks
         public Action<string?>? OutputSink { get; set; }
         public Action<string?>? ErrorSink { get; set; }
+
+        public AiServer(string pathToOllama)
+        {
+            _pathToOllama = pathToOllama;
+            _process = null;
+        }
 
         public void Dispose()
         {
@@ -32,11 +40,16 @@ namespace AuroraLib.AI
         public void Start()
         {
             if (_process != null && !_process.HasExited)
+            {
+                WriteOutputMessage($"[Ollama] - Cannot start - Already running");
                 return;
+            }
+
+            WriteOutputMessage($"[Ollama] - Starting {_pathToOllama}");
 
             var startInfo = new ProcessStartInfo
             {
-                FileName = Constants.DirectoryPaths.GetOllamaPath(),
+                FileName = _pathToOllama,
                 Arguments = "serve",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -50,15 +63,31 @@ namespace AuroraLib.AI
             _process.Start();
             _process.BeginOutputReadLine();
             _process.BeginErrorReadLine();
+
+            WriteOutputMessage($"[Ollama] - Started");
         }
 
         public void Stop()
         {
             if (_process != null && !_process.HasExited)
             {
+                WriteOutputMessage($"[Ollama] - Stopping");
                 _process.Kill();
                 _process.Dispose();
                 _process = null;
+                WriteOutputMessage($"[Ollama] - Stopped");
+            }
+            else
+            {
+                WriteOutputMessage($"[Ollama] - Cannot stop - Already stopped");
+            }
+        }
+
+        private void WriteOutputMessage(string? data)
+        {
+            if (data != null)
+            {
+                OutputSink?.Invoke(data);
             }
         }
     }
