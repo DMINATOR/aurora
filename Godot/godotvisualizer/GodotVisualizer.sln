@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.36105.23 d17.13
+VisualStudioVersion = 17.13.36105.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GodotVisualizer", "GodotVisualizer.csproj", "{EBA36D13-FC9D-44E5-BB1D-C824B9446458}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraLib", "..\..\Aurora\AuroraLib\AuroraLib.csproj", "{BF6D63FA-8285-C713-C436-BCCE224322E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aurora.Test", "..\..\Aurora\Aurora.Test\Aurora.Test.csproj", "{A874B0BE-DF91-40B6-9E8E-EF2509072E49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,8 +28,17 @@ Global
 		{BF6D63FA-8285-C713-C436-BCCE224322E7}.ExportDebug|Any CPU.Build.0 = Release|Any CPU
 		{BF6D63FA-8285-C713-C436-BCCE224322E7}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
 		{BF6D63FA-8285-C713-C436-BCCE224322E7}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{A874B0BE-DF91-40B6-9E8E-EF2509072E49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A874B0BE-DF91-40B6-9E8E-EF2509072E49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A874B0BE-DF91-40B6-9E8E-EF2509072E49}.ExportDebug|Any CPU.ActiveCfg = Release|Any CPU
+		{A874B0BE-DF91-40B6-9E8E-EF2509072E49}.ExportDebug|Any CPU.Build.0 = Release|Any CPU
+		{A874B0BE-DF91-40B6-9E8E-EF2509072E49}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{A874B0BE-DF91-40B6-9E8E-EF2509072E49}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AEA399E4-B944-4CA4-AEF8-9D4D76FCE10E}
 	EndGlobalSection
 EndGlobal
