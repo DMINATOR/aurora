@@ -46,7 +46,7 @@ namespace Aurora.Test.IntegrationTest
             _output.WriteLine("[TEST] - AiServer instance created.");
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             // Attempt to close and dispose the server
             if (_server != null)

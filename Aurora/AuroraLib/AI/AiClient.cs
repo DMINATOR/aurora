@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AuroraLib.AI
 {
-    public class AiClient
+    public class AiClient : IDisposable
     {
         private string _serverEndpoint;
         private OllamaApiClient _client;
@@ -20,6 +20,20 @@ namespace AuroraLib.AI
             // set up the client
             var uri = new Uri(_serverEndpoint);
             _client = new OllamaApiClient(uri);
+        }
+
+        public void Dispose()
+        {
+            if(_client != null)
+            {
+                _client.Dispose();
+                _client = null!;
+            }
+        }
+
+        public bool IsRunning()
+        {
+            return _client.IsRunningAsync().Result;
         }
 
         public async Task<IEnumerable<Model>> ListModels()
