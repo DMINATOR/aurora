@@ -59,6 +59,8 @@ namespace Aurora.Test.IntegrationTest
             // Act
             _server.Start();
 
+            Thread.Sleep(3000);
+
             // Assert
             Assert.True(_server.IsRunning());
         }
@@ -69,6 +71,8 @@ namespace Aurora.Test.IntegrationTest
         {
             // Arrange
             _server.Start();
+
+            Thread.Sleep(3000);
 
             // Act
             _server.Stop();
