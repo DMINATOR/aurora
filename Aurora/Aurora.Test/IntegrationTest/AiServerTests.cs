@@ -3,52 +3,13 @@ using AuroraLib.AI;
 using Xunit;
 using Xunit.Abstractions;
 
-// Disable parallel test execution for this class
-[assembly: CollectionBehavior(DisableTestParallelization = true)]
 
 namespace Aurora.Test.IntegrationTest
 {
-    public class AiServerTests : IDisposable
+    public class AiServerTests : AiBaseClassTests
     {
-        private AiServer _server;
-        private readonly ITestOutputHelper _output;
-
-        public AiServerTests(ITestOutputHelper output)
+        public AiServerTests(ITestOutputHelper output) : base(output)
         {
-            _output = output;
-            _server = new AuroraLib.AI.AiServer(DirectoryPathsForTests.GetOllamaPath());
-
-            // Assign delegates for output sinks
-            _server.OutputSink = (message) =>
-            {
-                if (message != null)
-                {
-                    _output.WriteLine($"{message}");
-                }
-            };
-
-            _server.ErrorSink = (message) =>
-            {
-                if (message != null)
-                {
-                    _output.WriteLine($"[ERROR]: {message}");
-                }
-            };
-
-            _output.WriteLine("[TEST] - AiServer instance created.");
-        }
-
-        public void Dispose()
-        {
-            // Attempt to close and dispose the server
-            if( _server != null)
-            {
-                _output.WriteLine("[TEST] - Stopping and disposing AiServer...");
-                _server.Stop();
-                _server.Dispose();
-                _server = null!;
-                _output.WriteLine("[TEST] - AiServer stopped and disposed.");
-            }
         }
 
         [Fact]
