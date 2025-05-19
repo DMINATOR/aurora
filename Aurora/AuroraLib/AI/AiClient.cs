@@ -1,4 +1,5 @@
 ﻿using OllamaSharp;
+using OllamaSharp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +10,34 @@ namespace AuroraLib.AI
 {
     public class AiClient
     {
-        AiServer _server;
+        private string _serverEndpoint;
+        private OllamaApiClient _client;
 
-        public AiClient(AiServer server)
+        public AiClient(string serverEndpoint)
         {
-            _server = server;
+            _serverEndpoint = serverEndpoint;
 
             // set up the client
-            var uri = new Uri("http://localhost:11434");
-            var ollama = new OllamaApiClient(uri);
+            var uri = new Uri(_serverEndpoint);
+            _client = new OllamaApiClient(uri);
         }
 
-        public void ListModels()
+        public async Task<IEnumerable<Model>> ListModels()
         {
+            var models = await _client.ListLocalModelsAsync();
 
+            return models;
+        }
+
+        public async Task<string> SendMessageAsync(string message)
+        {
+            var builder = new StringBuilder();
+            await foreach (var stream in _client.GenerateAsync(message))
+            {
+                builder.Append(stream!.Response);
+            }
+
+            return builder.ToString();  
         }
     }
 }

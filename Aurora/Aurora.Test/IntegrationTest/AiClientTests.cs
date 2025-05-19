@@ -1,4 +1,5 @@
-﻿using AuroraLib.AI;
+﻿using Aurora.Test.Constants;
+using AuroraLib.AI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,22 @@ namespace Aurora.Test.IntegrationTest
 
         public AiClientTests(ITestOutputHelper output) : base(output)
         {
-            _client = new AiClient(_server);
+            // Start server before client
+            _server.Start();
+
+            _client = new AiClient(ConstantsForTests.OLLAMA_URL);
         }
 
+        [Fact]
+        public async Task ListModels_Success()
+        {
+            // Arrange
 
+            // Act
+            var models = await _client.ListModels();
+
+            // Assert
+            Assert.Equal(2, models.Count());
+        }
     }
 }

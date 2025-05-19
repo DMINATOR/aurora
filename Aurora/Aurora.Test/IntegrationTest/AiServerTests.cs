@@ -13,7 +13,7 @@ namespace Aurora.Test.IntegrationTest
         }
 
         [Fact]
-        public void TestStartServer()
+        public void TestStartServer_Success()
         {
             // Arrange
 
@@ -28,7 +28,7 @@ namespace Aurora.Test.IntegrationTest
 
 
         [Fact]
-        public void TestStopServer()
+        public void TestStopServer_Success()
         {
             // Arrange
             _server.Start();
