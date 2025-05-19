@@ -23,7 +23,7 @@ namespace AuroraLib.AI
 
             _server.Start();
 
-            _client = new AiClient(config.ServerEndpoint);
+            _client = new AiClient(config.ServerEndpoint, config.ModelName);
         }
 
         public void Dispose()
@@ -33,6 +33,12 @@ namespace AuroraLib.AI
                 _server.Stop();
                 _server.Dispose();
                 _server = null!;
+            }
+
+            if (_client != null)
+            {
+                _client.Dispose();
+                _client = null!;
             }
         }
 

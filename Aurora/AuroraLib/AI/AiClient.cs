@@ -2,6 +2,7 @@
 using OllamaSharp.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +14,16 @@ namespace AuroraLib.AI
         private string _serverEndpoint;
         private OllamaApiClient _client;
 
-        public AiClient(string serverEndpoint)
+        public AiClient(string serverEndpoint, string model)
         {
             _serverEndpoint = serverEndpoint;
 
             // set up the client
             var uri = new Uri(_serverEndpoint);
             _client = new OllamaApiClient(uri);
+
+            // select a model which should be used for further operations
+            _client.SelectedModel = model;
         }
 
         public void Dispose()
@@ -45,6 +49,18 @@ namespace AuroraLib.AI
 
         public async Task<string> SendMessageAsync(string message)
         {
+            var chat = new Chat(_client);
+            var builder = new StringBuilder();
+
+            while (true)
+            {
+                await foreach (var answerToken in chat.SendAsync(message))
+                    builder.Append(answerToken);
+            }
+
+            return builder.ToString();
+
+            /*
             var builder = new StringBuilder();
             await foreach (var stream in _client.GenerateAsync(message))
             {
@@ -52,6 +68,7 @@ namespace AuroraLib.AI
             }
 
             return builder.ToString();  
+            */
         }
     }
 }

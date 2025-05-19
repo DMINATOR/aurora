@@ -18,7 +18,7 @@ namespace Aurora.Test.IntegrationTest
             // Start server before client
             _server.Start();
 
-            _client = new AiClient(ConstantsForTests.OLLAMA_URL);
+            _client = new AiClient(ConstantsForTests.OLLAMA_URL, ConstantsForTests.OLLAMA_MODEL);
         }
 
         public override void Dispose()
