@@ -15,7 +15,7 @@ namespace Aurora.Test.IntegrationTest
             var config = new AiSessionConfig
             {
                 PathToServerExecutable = DirectoryPathsForTests.GetOllamaPath(),
-                ModelName = "llama2",
+                ModelName = Constants.ConstantsForTests.OLLAMA_MODEL,
                 ServerEndpoint = ConstantsForTests.OLLAMA_URL,
                 ServerErrorSink = (message) =>
                 {
@@ -40,7 +40,7 @@ namespace Aurora.Test.IntegrationTest
         public void SendMessage_Success()
         {
             // Arrange
-            var message = "Hello, how are you?";
+            var message = "<|user|>Hello, what's the most beautiful colors?<|end|><|assistant|>"; // TODO - Get these tokens from the model
 
             // Act
             var response = _session.SendMessage(message);

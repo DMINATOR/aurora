@@ -52,23 +52,10 @@ namespace AuroraLib.AI
             var chat = new Chat(_client);
             var builder = new StringBuilder();
 
-            while (true)
-            {
-                await foreach (var answerToken in chat.SendAsync(message))
-                    builder.Append(answerToken);
-            }
+            await foreach (var answerToken in chat.SendAsync(message))
+                builder.Append(answerToken);
 
             return builder.ToString();
-
-            /*
-            var builder = new StringBuilder();
-            await foreach (var stream in _client.GenerateAsync(message))
-            {
-                builder.Append(stream!.Response);
-            }
-
-            return builder.ToString();  
-            */
         }
     }
 }

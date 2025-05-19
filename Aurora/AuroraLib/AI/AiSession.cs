@@ -23,7 +23,9 @@ namespace AuroraLib.AI
 
             _server.Start();
 
-            _client = new AiClient(config.ServerEndpoint, config.ModelName);
+            _client = new AiClient(config.ServerEndpoint, config.ModelName); // TODO verify that model exists
+
+            _client.IsRunning();
         }
 
         public void Dispose()
