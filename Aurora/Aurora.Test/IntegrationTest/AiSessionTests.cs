@@ -40,7 +40,7 @@ namespace Aurora.Test.IntegrationTest
         public void SendMessage_Success()
         {
             // Arrange
-            var message = "<|user|>Hello, what's the most beautiful colors?<|end|><|assistant|>"; // TODO - Get these tokens from the model
+            var message = "<|user|>Hello, what are the most beautiful colors?<|end|><|assistant|>"; // TODO - Get these tokens from the model
 
             // Act
             var response = _session.SendMessage(message);
