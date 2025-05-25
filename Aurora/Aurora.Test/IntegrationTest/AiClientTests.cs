@@ -18,7 +18,7 @@ namespace Aurora.Test.IntegrationTest
             // Start server before client
             _server.Start();
 
-            _client = new AiClient(ConstantsForTests.OLLAMA_URL, ConstantsForTests.OLLAMA_MODEL);
+            _client = new AiClient(ConstantsForTests.OLLAMA_URL, ConstantsForTests.OLLAMA_MODEL.ModelName);
         }
 
         public override void Dispose()
@@ -42,6 +42,8 @@ namespace Aurora.Test.IntegrationTest
             // Act
             var isRunning = _client.IsRunning();
 
+            _output.WriteLine($"Is Ollama running: {isRunning}");
+
             // Assert
             Assert.True(isRunning);
         }
@@ -53,6 +55,8 @@ namespace Aurora.Test.IntegrationTest
 
             // Act
             var models = await _client.ListModels();
+
+            _output.WriteLine($"Models: {string.Join(", ", models.Select(m => m.Name))}");
 
             // Assert
             Assert.True(true); // Assuming models are there

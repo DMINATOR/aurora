@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AuroraLib.AI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace Aurora.Test.Constants
     {
         public const string OLLAMA_URL = "http://localhost:11434";
 
-        public const string OLLAMA_MODEL = "phi4-mini:latest";
+        public static AiModelBase OLLAMA_MODEL = new Phi4AiModel();
     }
 }

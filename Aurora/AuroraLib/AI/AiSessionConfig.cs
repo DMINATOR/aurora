@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AuroraLib.AI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace AuroraLib.AI
 {
     public class AiSessionConfig
     {
-        public required string ModelName { get; set; }
+        public required AiModelBase Model { get; set; }
 
         public required string PathToServerExecutable { get; set; }
 

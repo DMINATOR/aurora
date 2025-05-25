@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AuroraLib.AI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,13 @@ namespace AuroraLib.AI
 {
     public class AiSession : IDisposable
     {
-        private readonly string _modelName;
+        private AiModelBase _model;
         private AiServer _server;
         private AiClient _client;
 
         public AiSession(AiSessionConfig config)
         {
-            _modelName = config.ModelName;
+            _model = config.Model;
 
             _server = new AiServer(config.PathToServerExecutable);
 
@@ -23,7 +24,7 @@ namespace AuroraLib.AI
 
             _server.Start();
 
-            _client = new AiClient(config.ServerEndpoint, config.ModelName); // TODO verify that model exists
+            _client = new AiClient(config.ServerEndpoint, _model.ModelName); // TODO verify that model exists
 
             _client.IsRunning();
         }
@@ -46,7 +47,9 @@ namespace AuroraLib.AI
 
         public string SendMessage(string message)
         {
-            var response = _client.SendMessageAsync(message).Result;
+            var wrappedMessage = _model.WrapMessage(message); // Apply model-specific wrapping to the message
+
+            var response = _client.SendMessageAsync(wrappedMessage).Result;
             return response;
         }
        

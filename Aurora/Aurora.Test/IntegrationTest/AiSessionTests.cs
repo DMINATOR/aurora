@@ -1,5 +1,6 @@
 ﻿using Aurora.Test.Constants;
 using AuroraLib.AI;
+using AuroraLib.AI.Models;
 using Xunit.Abstractions;
 
 namespace Aurora.Test.IntegrationTest
@@ -15,7 +16,7 @@ namespace Aurora.Test.IntegrationTest
             var config = new AiSessionConfig
             {
                 PathToServerExecutable = DirectoryPathsForTests.GetOllamaPath(),
-                ModelName = Constants.ConstantsForTests.OLLAMA_MODEL,
+                Model = new Phi4AiModel(),
                 ServerEndpoint = ConstantsForTests.OLLAMA_URL,
                 ServerErrorSink = (message) =>
                 {
@@ -40,7 +41,7 @@ namespace Aurora.Test.IntegrationTest
         public void SendMessage_Success()
         {
             // Arrange
-            var message = "<|user|>Hello, what are the most beautiful colors?<|end|><|assistant|>"; // TODO - Get these tokens from the model
+            var message = "Hello, what are the most beautiful colors?";
 
             // Act
             var response = _session.SendMessage(message);
