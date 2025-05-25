@@ -71,7 +71,15 @@ namespace AuroraLib.AI
             if (_process != null && !_process.HasExited)
             {
                 WriteOutputMessage($"Stopping");
-                _process.Kill();
+
+                _process.Kill(true);
+
+                while(!_process.HasExited)
+                {
+                    WriteOutputMessage($"Waiting.");
+                    System.Threading.Thread.Sleep(1000);
+                }
+
                 _process.Dispose();
                 _process = null;
                 WriteOutputMessage($"Stopped");

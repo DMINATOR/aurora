@@ -3,6 +3,7 @@ using OllamaSharp.Models;
 using OllamaSharp.Models.Chat;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace AuroraLib.AI
     {
         private string _serverEndpoint;
         private OllamaApiClient _client;
+        private Stopwatch _stopWatch = new Stopwatch();
 
         public Action<string?>? OutputSink { get; set; }
         public Action<string?>? ErrorSink { get; set; }
@@ -55,6 +57,8 @@ namespace AuroraLib.AI
             var chat = new Chat(_client);
             var builder = new StringBuilder();
 
+            _stopWatch.Start();
+
             WriteOutputMessage(message);
 
             try
@@ -69,6 +73,11 @@ namespace AuroraLib.AI
                 ErrorSink?.Invoke(ex.Message);
                 throw;
             }
+
+            _stopWatch.Stop();
+            var delta = _stopWatch.ElapsedMilliseconds;
+
+            WriteOutputMessage($"Response time: {delta} ms");
 
             return builder.ToString();
         }
