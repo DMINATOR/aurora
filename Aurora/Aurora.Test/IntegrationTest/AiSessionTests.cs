@@ -18,18 +18,18 @@ namespace Aurora.Test.IntegrationTest
                 PathToServerExecutable = DirectoryPathsForTests.GetOllamaPath(),
                 Model = new Phi4AiModel(),
                 ServerEndpoint = ConstantsForTests.OLLAMA_URL,
-                ServerErrorSink = (message) =>
+                ErrorSink = (message) =>
                 {
                     if (message != null)
                     {
                         _output.WriteLine($"[ERROR]: {message}");
                     }
                 },
-                ServerOutputSink = (message) =>
+                OutputSink = (message) =>
                 {
                     if (message != null)
                     {
-                        _output.WriteLine($"{message}");
+                        _output.WriteLine($"[OUTPUT]: {message}");
                     }
                 }
             };

@@ -40,11 +40,11 @@ namespace AuroraLib.AI
         {
             if (_process != null && !_process.HasExited)
             {
-                WriteOutputMessage($"[Ollama] - Cannot start - Already running");
+                WriteOutputMessage($"Cannot start - Already running");
                 return;
             }
 
-            WriteOutputMessage($"[Ollama] - Starting {_pathToOllama}");
+            WriteOutputMessage($"Starting {_pathToOllama}");
 
             var startInfo = new ProcessStartInfo
             {
@@ -63,22 +63,22 @@ namespace AuroraLib.AI
             _process.BeginOutputReadLine();
             _process.BeginErrorReadLine();
 
-            WriteOutputMessage($"[Ollama] - Started");
+            WriteOutputMessage($"Started");
         }
 
         public void Stop()
         {
             if (_process != null && !_process.HasExited)
             {
-                WriteOutputMessage($"[Ollama] - Stopping");
+                WriteOutputMessage($"Stopping");
                 _process.Kill();
                 _process.Dispose();
                 _process = null;
-                WriteOutputMessage($"[Ollama] - Stopped");
+                WriteOutputMessage($"Stopped");
             }
             else
             {
-                WriteOutputMessage($"[Ollama] - Cannot stop - Already stopped");
+                WriteOutputMessage($"Cannot stop - Already stopped");
             }
         }
 
@@ -86,7 +86,7 @@ namespace AuroraLib.AI
         {
             if (data != null)
             {
-                OutputSink?.Invoke(data);
+                OutputSink?.Invoke($"[Ollama] - {data}");
             }
         }
     }

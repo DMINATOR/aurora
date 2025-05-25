@@ -19,12 +19,15 @@ namespace AuroraLib.AI
 
             _server = new AiServer(config.PathToServerExecutable);
 
-            _server.ErrorSink = config.ServerErrorSink;
-            _server.OutputSink = config.ServerOutputSink;
-
+            // Start server
+            _server.ErrorSink = config.ErrorSink;
+            _server.OutputSink = config.OutputSink;
             _server.Start();
 
+            // Connect via Client
             _client = new AiClient(config.ServerEndpoint, _model.ModelName); // TODO verify that model exists
+            _client.OutputSink = config.OutputSink;
+            _client.ErrorSink = config.ErrorSink;
 
             _client.IsRunning();
         }

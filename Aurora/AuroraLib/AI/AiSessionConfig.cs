@@ -15,8 +15,8 @@ namespace AuroraLib.AI
 
         public required string ServerEndpoint { get; set; }
 
-        public Action<string?>? ServerOutputSink { get; set; }
+        public Action<string?>? OutputSink { get; set; }
 
-        public Action<string?>? ServerErrorSink { get; set; }
+        public Action<string?>? ErrorSink { get; set; }
     }
 }

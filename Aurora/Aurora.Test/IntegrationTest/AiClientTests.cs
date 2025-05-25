@@ -19,6 +19,23 @@ namespace Aurora.Test.IntegrationTest
             _server.Start();
 
             _client = new AiClient(ConstantsForTests.OLLAMA_URL, ConstantsForTests.OLLAMA_MODEL.ModelName);
+
+            // Assign delegates for output sinks
+            _client.OutputSink = (message) =>
+            {
+                if (message != null)
+                {
+                    _output.WriteLine($"{message}");
+                }
+            };
+
+            _client.ErrorSink = (message) =>
+            {
+                if (message != null)
+                {
+                    _output.WriteLine($"[ERROR]: {message}");
+                }
+            };
         }
 
         public override void Dispose()
