@@ -2,6 +2,7 @@
 using OllamaSharp.Models;
 using System.Diagnostics;
 using System.Text;
+using System.IO;
 
 namespace AuroraLib.AI
 {
@@ -15,12 +16,23 @@ namespace AuroraLib.AI
         public Action<string?>? ErrorSink { get; set; }
         public Action<string>? TokenReceivedSink { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AiClient"/> class.
+        /// </summary>
+        /// <param name="serverEndpoint">The server endpoint URI.</param>
+        /// <param name="model">The model file path.</param>
+        /// <exception cref="FileNotFoundException">Thrown if the model file does not exist at the specified location.</exception>
         public AiClient(string serverEndpoint, string model)
         {
             _serverEndpoint = serverEndpoint;
             var uri = new Uri(_serverEndpoint);
             _client = new OllamaApiClient(uri);
             _client.SelectedModel = model;
+
+            if (!File.Exists(model))
+            {
+                throw new FileNotFoundException($"File for model not found: '{model}'");
+            }
         }
 
         public void Dispose()
