@@ -19,6 +19,7 @@ namespace AuroraLib.AI
 
         public Action<string?>? OutputSink { get; set; }
         public Action<string?>? ErrorSink { get; set; }
+        public Action<string>? TokenReceivedSink { get; set; }
 
         public AiClient(string serverEndpoint, string model)
         {
@@ -66,6 +67,7 @@ namespace AuroraLib.AI
                 await foreach (var answerToken in chat.SendAsync(message))
                 {
                     builder.Append(answerToken);
+                    TokenReceivedSink?.Invoke(answerToken);
                 }
             }
             catch (Exception ex)

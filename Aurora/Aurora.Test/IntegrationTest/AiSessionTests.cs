@@ -9,6 +9,7 @@ namespace Aurora.Test.IntegrationTest
     {
         private AiSession _session;
         private ITestOutputHelper _output;
+        private ICollection<string> _tokenReceived = new List<string>();
 
         public AiSessionTests(ITestOutputHelper output)
         {
@@ -31,6 +32,13 @@ namespace Aurora.Test.IntegrationTest
                     {
                         _output.WriteLine($"[OUTPUT]: {message}");
                     }
+                },
+                TokenReceivedSink = (token) =>
+                {
+                    if (token != null)
+                    {
+                        _tokenReceived.Add(token); // append tokens
+                    }
                 }
             };
 
@@ -46,10 +54,12 @@ namespace Aurora.Test.IntegrationTest
             // Act
             var response = _session.SendMessage(message);
             _output.WriteLine($"Response: {response}");
+            _output.WriteLine($"Tokens received: {string.Join(", ", _tokenReceived)}");
 
             // Assert
             Assert.NotNull(response);
             Assert.NotEmpty(response);
+            Assert.True(_tokenReceived.Count > 0, "No tokens were received during the session.");
         }
 
         public void Dispose()

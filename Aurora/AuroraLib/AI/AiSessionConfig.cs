@@ -18,5 +18,7 @@ namespace AuroraLib.AI
         public Action<string?>? OutputSink { get; set; }
 
         public Action<string?>? ErrorSink { get; set; }
+
+        public Action<string?>? TokenReceivedSink { get; set; }
     }
 }

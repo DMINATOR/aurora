@@ -28,6 +28,7 @@ namespace AuroraLib.AI
             _client = new AiClient(config.ServerEndpoint, _model.ModelName); // TODO verify that model exists
             _client.OutputSink = config.OutputSink;
             _client.ErrorSink = config.ErrorSink;
+            _client.TokenReceivedSink = config.TokenReceivedSink;
 
             _client.IsRunning();
         }
