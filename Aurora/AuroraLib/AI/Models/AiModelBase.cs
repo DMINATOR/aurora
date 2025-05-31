@@ -1,8 +1,4 @@
-﻿using AuroraLib.Constants;
-using OllamaSharp;
-using OllamaSharp.Models;
-
-namespace AuroraLib.AI.Models
+﻿namespace AuroraLib.AI.Models
 {
     /// <summary>
     /// Base class for defining a model for AI interactions.

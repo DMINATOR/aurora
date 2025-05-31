@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AuroraLib.Constants
+﻿namespace AuroraLib.Constants
 {
     /// <summary>
     /// Defines paths for all potential locations that are used by the lib

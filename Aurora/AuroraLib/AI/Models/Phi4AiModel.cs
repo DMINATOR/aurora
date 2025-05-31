@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AuroraLib.AI.Models
+﻿namespace AuroraLib.AI.Models
 {
     /// <summary>
     /// Model that implements Phi4 ruleset, see - https://github.com/microsoft/PhiCookBook

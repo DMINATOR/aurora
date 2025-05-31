@@ -1,13 +1,7 @@
 ﻿using OllamaSharp;
 using OllamaSharp.Models;
-using OllamaSharp.Models.Chat;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AuroraLib.AI
 {

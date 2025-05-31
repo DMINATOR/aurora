@@ -1,7 +1,4 @@
-﻿using Aurora.Test.Constants;
-using AuroraLib.AI;
-using Xunit;
-using Xunit.Abstractions;
+﻿using Xunit.Abstractions;
 
 
 namespace Aurora.Test.IntegrationTest
