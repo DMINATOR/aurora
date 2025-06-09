@@ -21,18 +21,12 @@ namespace AuroraLib.AI
         /// </summary>
         /// <param name="serverEndpoint">The server endpoint URI.</param>
         /// <param name="model">The model file path.</param>
-        /// <exception cref="FileNotFoundException">Thrown if the model file does not exist at the specified location.</exception>
         public AiClient(string serverEndpoint, string model)
         {
             _serverEndpoint = serverEndpoint;
             var uri = new Uri(_serverEndpoint);
             _client = new OllamaApiClient(uri);
             _client.SelectedModel = model;
-
-            if (!File.Exists(model))
-            {
-                throw new FileNotFoundException($"File for model not found: '{model}'");
-            }
         }
 
         public void Dispose()

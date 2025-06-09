@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://0dpmweprekrt"]
+[gd_scene load_steps=2 format=3 uid="uid://0dpmweprekrt"]
+
+[ext_resource type="Script" uid="uid://bgocsk7pmmggd" path="res://Scenes/AiScene.cs" id="1_l8u8p"]
 
 [node name="AiScene" type="Control"]
 layout_mode = 3
@@ -7,5 +9,89 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_l8u8p")
 
 [node name="Window" type="Window" parent="."]
+title = "Window"
+position = Vector2i(100, 100)
+size = Vector2i(500, 455)
+
+[node name="TabContainer" type="TabContainer" parent="Window"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="TabStatus" type="TabBar" parent="Window/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Window/TabContainer/TabStatus"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.022
+anchor_top = 0.0259434
+anchor_right = 0.988
+anchor_bottom = 0.209434
+offset_bottom = 0.199997
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Window/TabContainer/TabStatus/VBoxContainer"]
+layout_mode = 2
+text = "Ollama path:"
+
+[node name="TextOllamaPath" type="TextEdit" parent="Window/TabContainer/TabStatus/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "E\\DMITRI\\SOURCE\\GIT\\GODOT\\AURORA\\Ollama\\ollama.exe"
+placeholder_text = "Path to ollama.exe"
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Window/TabContainer/TabStatus"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.022
+anchor_top = 0.242925
+anchor_right = 0.988
+anchor_bottom = 0.431132
+offset_bottom = 0.199997
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Window/TabContainer/TabStatus/VBoxContainer2"]
+layout_mode = 2
+text = "Ollama endpoint:"
+
+[node name="TextOllamaEndpoint" type="TextEdit" parent="Window/TabContainer/TabStatus/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "127.0.0.1:11434"
+placeholder_text = "Ollama endpoint"
+metadata/_edit_use_anchors_ = true
+
+[node name="StartServerButton" type="Button" parent="Window/TabContainer/TabStatus"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 199.0
+offset_right = 118.0
+offset_bottom = 237.0
+text = "▶ Start"
+
+[node name="StopServerbutton" type="Button" parent="Window/TabContainer/TabStatus"]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 199.0
+offset_right = 229.0
+offset_bottom = 237.0
+text = "⏹ Stop"
+
+[node name="TabPlayground" type="TabBar" parent="Window/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[connection signal="pressed" from="Window/TabContainer/TabStatus/StartServerButton" to="." method="ButtonStartServerPressed"]
+[connection signal="pressed" from="Window/TabContainer/TabStatus/StopServerbutton" to="." method="ButtonStopServerPressed"]
