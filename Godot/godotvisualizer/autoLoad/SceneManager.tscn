@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://bomhadnfr01pv"]
+
+[ext_resource type="Script" uid="uid://b8q1l7yjnbuc0" path="res://autoLoad/SceneManager.cs" id="1_hjya1"]
+[ext_resource type="PackedScene" uid="uid://dcur50f5qlnd3" path="res://Scenes/MainScene.tscn" id="2_7xrkh"]
+[ext_resource type="PackedScene" uid="uid://0dpmweprekrt" path="res://Scenes/AiScene.tscn" id="3_83gc0"]
+
+[node name="SceneManager" type="Node"]
+script = ExtResource("1_hjya1")
+MainScene = ExtResource("2_7xrkh")
+AiScene = ExtResource("3_83gc0")

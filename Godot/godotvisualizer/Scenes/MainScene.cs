@@ -18,6 +18,7 @@ public partial class MainScene : Node2D
 
     private void ButtonAiPressed()
     {
-        GD.Print("Hello world!");
+		var scene = SceneManagerExtensions.GetGlobalSceneManager(this);
+		scene.ChangeToAiScene();
     }
 }
