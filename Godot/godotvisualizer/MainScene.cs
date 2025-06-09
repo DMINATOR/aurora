@@ -14,4 +14,10 @@ public partial class MainScene : Node2D
 	public override void _Process(double delta)
 	{
 	}
+
+
+    private void ButtonAiPressed()
+    {
+        GD.Print("Hello world!");
+    }
 }
