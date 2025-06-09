@@ -46,7 +46,7 @@ text = "Ollama path:"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-text = "E\\DMITRI\\SOURCE\\GIT\\GODOT\\AURORA\\Ollama\\ollama.exe"
+text = "E:\\DMITRI\\SOURCE\\GIT\\GODOT\\AURORA\\Ollama\\ollama.exe"
 placeholder_text = "Path to ollama.exe"
 metadata/_edit_use_anchors_ = true
 
