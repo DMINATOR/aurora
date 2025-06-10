@@ -22,21 +22,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
+current_tab = 0
 
 [node name="TabStatus" type="TabBar" parent="Window/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Window/TabContainer/TabStatus"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.022
-anchor_top = 0.0259434
-anchor_right = 0.988
-anchor_bottom = 0.209434
-offset_bottom = 0.199997
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 14.0
+offset_top = 26.0
+offset_right = -16.0
+offset_bottom = 105.0
+grow_horizontal = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="Window/TabContainer/TabStatus/VBoxContainer"]
@@ -53,12 +53,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Window/TabContainer/TabStatus"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.022
-anchor_top = 0.242925
-anchor_right = 0.988
-anchor_bottom = 0.431132
-offset_bottom = 0.199997
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 14.0
+offset_top = 118.0
+offset_right = -16.0
+offset_bottom = 188.0
+grow_horizontal = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="Window/TabContainer/TabStatus/VBoxContainer2"]
@@ -75,21 +76,22 @@ metadata/_edit_use_anchors_ = true
 
 [node name="StartServerButton" type="Button" parent="Window/TabContainer/TabStatus"]
 layout_mode = 0
-offset_left = 23.0
-offset_top = 199.0
-offset_right = 118.0
-offset_bottom = 237.0
+offset_left = 15.0
+offset_top = 201.0
+offset_right = 110.0
+offset_bottom = 239.0
 text = "▶ Start"
 
 [node name="StopServerbutton" type="Button" parent="Window/TabContainer/TabStatus"]
 layout_mode = 0
-offset_left = 134.0
-offset_top = 199.0
-offset_right = 229.0
-offset_bottom = 237.0
+offset_left = 119.0
+offset_top = 202.0
+offset_right = 214.0
+offset_bottom = 240.0
 text = "⏹ Stop"
 
 [node name="TabPlayground" type="TabBar" parent="Window/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
