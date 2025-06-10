@@ -14,7 +14,7 @@ script = ExtResource("1_l8u8p")
 [node name="Window" type="Window" parent="."]
 title = "Window"
 position = Vector2i(100, 98)
-size = Vector2i(500, 455)
+size = Vector2i(500, 500)
 
 [node name="TabContainer" type="TabContainer" parent="Window"]
 anchors_preset = 15
@@ -106,11 +106,17 @@ layout_mode = 2
 text = "Running Processes:"
 
 [node name="TreeProcesses" type="Tree" parent="Window/TabContainer/TabStatus/VBoxContainerProcesses"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_vertical = 3
 columns = 3
 hide_root = true
+
+[node name="ButtonRefreshProcesses" type="Button" parent="Window/TabContainer/TabStatus/VBoxContainerProcesses"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "🔃 Refresh Process List"
 
 [node name="TabPlayground" type="TabBar" parent="Window/TabContainer"]
 visible = false
@@ -147,4 +153,5 @@ text = "Send"
 
 [connection signal="pressed" from="Window/TabContainer/TabStatus/StartServerButton" to="." method="ButtonStartServerPressed"]
 [connection signal="pressed" from="Window/TabContainer/TabStatus/StopServerbutton" to="." method="ButtonStopServerPressed"]
+[connection signal="pressed" from="Window/TabContainer/TabStatus/VBoxContainerProcesses/ButtonRefreshProcesses" to="." method="ButtonRefreshProcessesPressed"]
 [connection signal="pressed" from="Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput/ButtonSend" to="." method="ButtonSendPressed"]

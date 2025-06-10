@@ -16,6 +16,7 @@ public partial class AiScene : Control
     private TextEdit TextChatHistory;
     private LineEdit LineEditUserInput;
     private Button ButtonSend;
+    private Button ButtonRefreshProcesses;
 
     private Tree TreeProcesses;
 
@@ -27,9 +28,9 @@ public partial class AiScene : Control
         TextChatHistory = GetNode<TextEdit>($"%{nameof(TextChatHistory)}");
         LineEditUserInput = GetNode<LineEdit>($"%{nameof(LineEditUserInput)}");
         ButtonSend = GetNode<Button>($"%{nameof(ButtonSend)}");
+        ButtonRefreshProcesses = GetNode<Button>($"%{nameof(ButtonRefreshProcesses)}");
 
         TreeProcesses = GetNode<Tree>($"%{nameof(TreeProcesses)}");
-        PopulateOllamaProcessList();
     }
 
     private void PopulateOllamaProcessList()
@@ -55,7 +56,7 @@ public partial class AiScene : Control
             item.SetText(1, process.ProcessName + ".exe"); // Name
             item.SetText(2, "Terminate"); // Action
         }
-        
+
         if (!processes.Any())
         {
             var item = TreeProcesses.CreateItem(root);
@@ -98,15 +99,16 @@ public partial class AiScene : Control
 
         GD.Print($"[AI]: Starting session");
         _session = new AiSession(config);
+        PopulateOllamaProcessList();
     }
 
     private void ButtonStopServerPressed()
     {
         GD.Print($"[AI]: Stopping session");
         _session.Dispose();
+        PopulateOllamaProcessList();
     }
 
-    // Rename OnSendButtonPressed to ButtonSendPressed for consistency
     private void ButtonSendPressed()
     {
         if (_session == null || string.IsNullOrWhiteSpace(LineEditUserInput.Text))
@@ -127,6 +129,11 @@ public partial class AiScene : Control
             GD.PrintErr($"[AI][Chat] Error: {ex.Message}\n{ex.StackTrace}");
             AppendToChat($"[Error]: {ex.Message}\n");
         }
+    }
+
+    private void ButtonRefreshProcessesPressed()
+    {
+        PopulateOllamaProcessList();
     }
 
     private void AppendToChat(string text)
