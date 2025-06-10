@@ -27,7 +27,7 @@ public partial class AiScene : Control
         LineEditUserInput = GetNode<LineEdit>($"%{nameof(LineEditUserInput)}");
         ButtonSend = GetNode<Button>($"%{nameof(ButtonSend)}");
 
-        TreeProcesses = GetNode<Tree>("Window/TabContainer/TabStatus/VBoxContainerProcesses/TreeProcesses");
+        TreeProcesses = GetNode<Tree>($"%{nameof(TreeProcesses)}");
         AddExampleProcessRow();
     }
 

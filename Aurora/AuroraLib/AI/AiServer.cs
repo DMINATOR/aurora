@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace AuroraLib.AI
 {
@@ -91,6 +92,16 @@ namespace AuroraLib.AI
             {
                 OutputSink?.Invoke($"[Ollama] - {data}");
             }
+        }
+
+        public static List<Process> GetOllamaProcesses()
+        {
+            var processes = new List<Process>();
+            foreach (var process in Process.GetProcessesByName("ollama"))
+            {
+                processes.Add(process);
+            }
+            return processes;
         }
     }
 }
