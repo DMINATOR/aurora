@@ -72,7 +72,9 @@ public partial class AiScene : Control
     {
         if (_session == null || string.IsNullOrWhiteSpace(LineEditUserInput.Text))
             return;
+
         var userMessage = LineEditUserInput.Text.Trim();
+        
         AppendToChat($"You: {userMessage}\n");
         LineEditUserInput.Text = string.Empty;
 

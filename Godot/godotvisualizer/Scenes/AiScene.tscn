@@ -22,9 +22,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 1
 
 [node name="TabStatus" type="TabBar" parent="Window/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -89,7 +90,6 @@ offset_bottom = 237.0
 text = "⏹ Stop"
 
 [node name="TabPlayground" type="TabBar" parent="Window/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -98,23 +98,29 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="ChatHistory" type="TextEdit" parent="Window/TabContainer/TabPlayground/VBoxContainerChat"]
+[node name="TextChatHistory" type="TextEdit" parent="Window/TabContainer/TabPlayground/VBoxContainerChat"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-read_only = true
 placeholder_text = "Conversation history will appear here."
 
 [node name="HBoxContainerInput" type="HBoxContainer" parent="Window/TabContainer/TabPlayground/VBoxContainerChat"]
-layout_mode = 1
+layout_mode = 2
 
-[node name="UserInput" type="LineEdit" parent="Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput"]
+[node name="LineEditUserInput" type="LineEdit" parent="Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput"]
+unique_name_in_owner = true
+layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Type your message..."
 
-[node name="SendButton" type="Button" parent="Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput"]
+[node name="ButtonSend" type="Button" parent="Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "Send"
 
 [connection signal="pressed" from="Window/TabContainer/TabStatus/StartServerButton" to="." method="ButtonStartServerPressed"]
 [connection signal="pressed" from="Window/TabContainer/TabStatus/StopServerbutton" to="." method="ButtonStopServerPressed"]
-[connection signal="pressed" from="Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput/SendButton" to="." method="ButtonSendPressed"]
+[connection signal="pressed" from="Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput/ButtonSend" to="." method="ButtonSendPressed"]
