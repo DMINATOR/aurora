@@ -16,6 +16,8 @@ public partial class AiScene : Control
     private LineEdit LineEditUserInput;
     private Button ButtonSend;
 
+    private Tree TreeProcesses;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -24,6 +26,22 @@ public partial class AiScene : Control
         TextChatHistory = GetNode<TextEdit>($"%{nameof(TextChatHistory)}");
         LineEditUserInput = GetNode<LineEdit>($"%{nameof(LineEditUserInput)}");
         ButtonSend = GetNode<Button>($"%{nameof(ButtonSend)}");
+
+        TreeProcesses = GetNode<Tree>("Window/TabContainer/TabStatus/VBoxContainerProcesses/TreeProcesses");
+        AddExampleProcessRow();
+    }
+
+    private void AddExampleProcessRow()
+    {
+        if (TreeProcesses == null)
+            return;
+        var root = TreeProcesses.GetRoot();
+        if (root == null)
+            root = TreeProcesses.CreateItem();
+        var item = TreeProcesses.CreateItem(root);
+        item.SetText(0, "5678"); // PID
+        item.SetText(1, "SampleProcess.exe"); // Name
+        item.SetText(2, "Terminate"); // Action
     }
 
     private void ButtonStartServerPressed()
