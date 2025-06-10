@@ -11,6 +11,13 @@ applyTo: "**"
 - Place each class, interface, or enum in its own file
 - Group related files in folders by feature or domain
 
+## Godot
+
+For godot scripts, follow these additional conventions:
+- When defining nodes inside a script, prefix with the `NodeType`, for example `TextInput` for a `TextEdit` node for text input.
+- Make sure node names from a script, match with the names defined inside a Scene file.
+- For locating nodes prefer the following pattern `GetNode<NodeType>($"%{nameof(NodeName)}");` where `NodeName` is the name of the node in the scene tree and `NodeType` is the type of the node (e.g., `TextEdit`, `Button`).
+
 ## Error Handling
 - Use try/catch blocks for async and sync operations where exceptions may occur
 - Always log errors with contextual information, including exception details

@@ -11,20 +11,19 @@ public partial class AiScene : Control
     private TextEdit TextOllamaPath;
 
     private TextEdit TextOllamaEndpoint;
-    
-    private TextEdit _chatHistory;
-    private LineEdit _userInput;
-    private Button _sendButton;
+
+    private TextEdit TextChatHistory;
+    private LineEdit LineEditUserInput;
+    private Button ButtonSend;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-        TextOllamaPath = GetNode<TextEdit>("%TextOllamaPath");
-        TextOllamaEndpoint = GetNode<TextEdit>("%TextOllamaEndpoint");
-        _chatHistory = GetNode<TextEdit>("Window/TabContainer/TabPlayground/VBoxContainerChat/ChatHistory");
-        _userInput = GetNode<LineEdit>("Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput/UserInput");
-        _sendButton = GetNode<Button>("Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput/SendButton");
-        // No direct event hookup; use Godot's signal connection in the scene file
+        TextOllamaPath = GetNode<TextEdit>($"%{nameof(TextOllamaPath)}");
+        TextOllamaEndpoint = GetNode<TextEdit>($"%{nameof(TextOllamaEndpoint)}");
+        TextChatHistory = GetNode<TextEdit>($"%{nameof(TextChatHistory)}");
+        LineEditUserInput = GetNode<LineEdit>($"%{nameof(LineEditUserInput)}");
+        ButtonSend = GetNode<Button>($"%{nameof(ButtonSend)}");
     }
 
     private void ButtonStartServerPressed()
@@ -71,11 +70,12 @@ public partial class AiScene : Control
     // Rename OnSendButtonPressed to ButtonSendPressed for consistency
     private void ButtonSendPressed()
     {
-        if (_session == null || string.IsNullOrWhiteSpace(_userInput.Text))
+        if (_session == null || string.IsNullOrWhiteSpace(LineEditUserInput.Text))
             return;
-        var userMessage = _userInput.Text.Trim();
+        var userMessage = LineEditUserInput.Text.Trim();
         AppendToChat($"You: {userMessage}\n");
-        _userInput.Text = string.Empty;
+        LineEditUserInput.Text = string.Empty;
+
         try
         {
             var response = _session.SendMessage(userMessage);
@@ -90,7 +90,7 @@ public partial class AiScene : Control
 
     private void AppendToChat(string text)
     {
-        _chatHistory.Text += text;
-        _chatHistory.ScrollVertical = int.MaxValue;
+        TextChatHistory.Text += text;
+        TextChatHistory.ScrollVertical = int.MaxValue;
     }
 }
