@@ -153,5 +153,6 @@ text = "Send"
 
 [connection signal="pressed" from="Window/TabContainer/TabStatus/StartServerButton" to="." method="ButtonStartServerPressed"]
 [connection signal="pressed" from="Window/TabContainer/TabStatus/StopServerbutton" to="." method="ButtonStopServerPressed"]
+[connection signal="cell_selected" from="Window/TabContainer/TabStatus/VBoxContainerProcesses/TreeProcesses" to="." method="OnProcessCellSelected"]
 [connection signal="pressed" from="Window/TabContainer/TabStatus/VBoxContainerProcesses/ButtonRefreshProcesses" to="." method="ButtonRefreshProcessesPressed"]
 [connection signal="pressed" from="Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput/ButtonSend" to="." method="ButtonSendPressed"]

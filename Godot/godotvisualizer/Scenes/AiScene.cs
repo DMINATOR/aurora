@@ -22,22 +22,25 @@ public partial class AiScene : Control
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
-	{
+    {
         TextOllamaPath = GetNode<TextEdit>($"%{nameof(TextOllamaPath)}");
         TextOllamaEndpoint = GetNode<TextEdit>($"%{nameof(TextOllamaEndpoint)}");
         TextChatHistory = GetNode<TextEdit>($"%{nameof(TextChatHistory)}");
         LineEditUserInput = GetNode<LineEdit>($"%{nameof(LineEditUserInput)}");
         ButtonSend = GetNode<Button>($"%{nameof(ButtonSend)}");
         ButtonRefreshProcesses = GetNode<Button>($"%{nameof(ButtonRefreshProcesses)}");
-
         TreeProcesses = GetNode<Tree>($"%{nameof(TreeProcesses)}");
+
+        // Set column widths for process list
+        TreeProcesses.SetColumnCustomMinimumWidth(0, 60);   // PID
+        TreeProcesses.SetColumnCustomMinimumWidth(1, 200);  // Name
+        TreeProcesses.SetColumnCustomMinimumWidth(2, 110);  // Action
+
+        PopulateOllamaProcessList();
     }
 
     private void PopulateOllamaProcessList()
     {
-        if (TreeProcesses == null)
-            return;
-
         TreeProcesses.Clear();
 
         var root = TreeProcesses.GetRoot();
@@ -51,18 +54,13 @@ public partial class AiScene : Control
 
         foreach (var process in processes)
         {
+            if( process == null || process.HasExited)
+                continue;
+
             var item = TreeProcesses.CreateItem(root);
             item.SetText(0, process.Id.ToString()); // PID
             item.SetText(1, process.ProcessName + ".exe"); // Name
-            item.SetText(2, "Terminate"); // Action
-        }
-
-        if (!processes.Any())
-        {
-            var item = TreeProcesses.CreateItem(root);
-            item.SetText(0, "-");
-            item.SetText(1, "No ollama.exe running");
-            item.SetText(2, "");
+            item.SetText(2, "❌ Terminate"); // Action
         }
     }
 
@@ -115,7 +113,7 @@ public partial class AiScene : Control
             return;
 
         var userMessage = LineEditUserInput.Text.Trim();
-        
+
         AppendToChat($"You: {userMessage}\n");
         LineEditUserInput.Text = string.Empty;
 
@@ -140,5 +138,25 @@ public partial class AiScene : Control
     {
         TextChatHistory.Text += text;
         TextChatHistory.ScrollVertical = int.MaxValue;
+    }
+
+    private void OnProcessCellSelected()
+    {
+        var selectedItem = TreeProcesses.GetSelected();
+        if (selectedItem == null)
+            return;
+
+        var actionText = selectedItem.GetText(2);
+        if (actionText == "❌ Terminate")
+        {
+            var pid = int.Parse(selectedItem.GetText(0));
+            var process = System.Diagnostics.Process.GetProcessById(pid);
+            if (process != null && !process.HasExited)
+            {
+                process.Kill();
+                GD.Print($"[AI]: Terminated process {pid}");
+                CallDeferred(nameof(PopulateOllamaProcessList));
+            }
+        }
     }
 }
