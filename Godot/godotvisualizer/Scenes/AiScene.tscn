@@ -93,5 +93,28 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
+[node name="VBoxContainerChat" type="VBoxContainer" parent="Window/TabContainer/TabPlayground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ChatHistory" type="TextEdit" parent="Window/TabContainer/TabPlayground/VBoxContainerChat"]
+layout_mode = 2
+size_flags_vertical = 3
+read_only = true
+placeholder_text = "Conversation history will appear here."
+
+[node name="HBoxContainerInput" type="HBoxContainer" parent="Window/TabContainer/TabPlayground/VBoxContainerChat"]
+layout_mode = 1
+
+[node name="UserInput" type="LineEdit" parent="Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput"]
+size_flags_horizontal = 3
+placeholder_text = "Type your message..."
+
+[node name="SendButton" type="Button" parent="Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput"]
+text = "Send"
+
 [connection signal="pressed" from="Window/TabContainer/TabStatus/StartServerButton" to="." method="ButtonStartServerPressed"]
 [connection signal="pressed" from="Window/TabContainer/TabStatus/StopServerbutton" to="." method="ButtonStopServerPressed"]
+[connection signal="pressed" from="Window/TabContainer/TabPlayground/VBoxContainerChat/HBoxContainerInput/SendButton" to="." method="ButtonSendPressed"]
