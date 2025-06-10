@@ -3,6 +3,7 @@ using AuroraLib.AI.Models;
 using Godot;
 using OllamaSharp.Models.Chat;
 using System;
+using System.Linq;
 
 public partial class AiScene : Control
 {
@@ -28,20 +29,40 @@ public partial class AiScene : Control
         ButtonSend = GetNode<Button>($"%{nameof(ButtonSend)}");
 
         TreeProcesses = GetNode<Tree>($"%{nameof(TreeProcesses)}");
-        AddExampleProcessRow();
+        PopulateOllamaProcessList();
     }
 
-    private void AddExampleProcessRow()
+    private void PopulateOllamaProcessList()
     {
         if (TreeProcesses == null)
             return;
+
+        TreeProcesses.Clear();
+
         var root = TreeProcesses.GetRoot();
+
         if (root == null)
+        {
             root = TreeProcesses.CreateItem();
-        var item = TreeProcesses.CreateItem(root);
-        item.SetText(0, "5678"); // PID
-        item.SetText(1, "SampleProcess.exe"); // Name
-        item.SetText(2, "Terminate"); // Action
+        }
+
+        var processes = AuroraLib.AI.AiServer.GetOllamaProcesses();
+
+        foreach (var process in processes)
+        {
+            var item = TreeProcesses.CreateItem(root);
+            item.SetText(0, process.Id.ToString()); // PID
+            item.SetText(1, process.ProcessName + ".exe"); // Name
+            item.SetText(2, "Terminate"); // Action
+        }
+        
+        if (!processes.Any())
+        {
+            var item = TreeProcesses.CreateItem(root);
+            item.SetText(0, "-");
+            item.SetText(1, "No ollama.exe running");
+            item.SetText(2, "");
+        }
     }
 
     private void ButtonStartServerPressed()

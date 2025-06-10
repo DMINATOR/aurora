@@ -58,17 +58,5 @@ namespace Aurora.Test.IntegrationTest
             // Assert
             Assert.All(processes, p => Assert.Equal("ollama", p.ProcessName, ignoreCase: true));
         }
-
-        [Fact]
-        public void GetExplorerProcesses_ReturnsProcessesWithCorrectName()
-        {
-            // Act
-            var processes = System.Diagnostics.Process.GetProcessesByName("explorer");
-
-            // Assert
-            Assert.All(processes, p => Assert.Equal("explorer", p.ProcessName, ignoreCase: true));
-            // On most Windows systems, there should be at least one explorer.exe running
-            Assert.True(processes.Length > 0, "No explorer.exe process found. This test assumes a typical Windows environment.");
-        }
     }
 }

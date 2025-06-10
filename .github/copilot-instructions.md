@@ -10,6 +10,8 @@ applyTo: "**"
 - Use ALL_CAPS for constants and static readonly fields
 - Place each class, interface, or enum in its own file
 - Group related files in folders by feature or domain
+- Always expand code blocks (e.g., if, for, while) to improve readability
+- Add additional blank lines between different sections of a code for improved readability
 
 ## Godot
 
