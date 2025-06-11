@@ -22,9 +22,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 1
 
 [node name="TabStatus" type="TabBar" parent="Window/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -119,7 +120,6 @@ layout_mode = 2
 text = "🔃 Refresh Process List"
 
 [node name="TabPlayground" type="TabBar" parent="Window/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -136,6 +136,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "Conversation history will appear here."
+wrap_mode = 1
 
 [node name="HBoxContainerInput" type="HBoxContainer" parent="Window/TabContainer/TabPlayground/VBoxContainerChat"]
 layout_mode = 2

@@ -121,8 +121,8 @@ public partial class AiScene : Control
 
             try
             {
-                var response = await _session.SendMessageAsync(userMessage);
-                CallDeferred(nameof(AppendToChat), $"Llama: {response}\n");
+                await _session.SendMessageAsync(userMessage);
+                //CallDeferred(nameof(AppendToChat), $"Llama: {response}\n");
             }
             catch (Exception ex)
             {
