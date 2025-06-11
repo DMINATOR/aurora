@@ -28,6 +28,26 @@ namespace Aurora.Test.IntegrationTest
             Assert.Equal(1, after);
         }
 
+         [Fact]
+        public void TestStartServer_ReuseExisting_Success()
+        {
+            // Arrange
+            var before = AuroraLib.AI.AiServer.GetOllamaProcesses().Count;
+
+            // Act
+            _server.Start();
+            Thread.Sleep(3000);
+
+            // Act again to reuse the existing process
+            _server.Start();
+
+            var after = AuroraLib.AI.AiServer.GetOllamaProcesses().Count;
+
+            // Assert
+            Assert.True(_server.IsRunning());
+            Assert.Equal(0, before);
+            Assert.Equal(1, after);
+        }
 
         [Fact]
         public void TestStopServer_Success()

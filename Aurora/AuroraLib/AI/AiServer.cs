@@ -42,17 +42,28 @@ namespace AuroraLib.AI
 
             WriteOutputMessage($"Starting {_pathToOllama}");
 
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = _pathToOllama,
-                Arguments = "serve",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
+            var existingProcesses = GetOllamaProcesses();
 
-            _process = new Process { StartInfo = startInfo };
+            if (existingProcesses.Count > 0)
+            {
+                _process = existingProcesses[0]; // Pick first from the list
+                WriteOutputMessage($"Found existing process with PID: {_process.Id}. Reusing it.");
+            }
+            else
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = _pathToOllama,
+                    Arguments = "serve",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                _process = new Process { StartInfo = startInfo };
+            }
+
             _process.OutputDataReceived += (s, e) => OutputSink?.Invoke(e.Data);
             _process.ErrorDataReceived += (s, e) => ErrorSink?.Invoke(e.Data);
             _process.Start();
