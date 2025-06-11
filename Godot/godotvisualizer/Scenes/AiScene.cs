@@ -89,7 +89,7 @@ public partial class AiScene : Control
             {
                 if (token != null)
                 {
-                    CallDeferred(nameof(AppendToChat), $"{token}");
+                    AppendToChatDeferred(token);
                 }
             }
         };
@@ -112,28 +112,28 @@ public partial class AiScene : Control
             return;
 
         var userMessage = LineEditUserInput.Text.Trim();
-
-        AppendToChat($"You: {userMessage}\n");
         LineEditUserInput.Text = string.Empty;
+
+        AppendToChatDeferred($"You: {userMessage}\n");
+        TextChatHistory.Text += "\n"; // Add a new line for better readability
 
         try
         {
-
             try
             {
-                await _session.SendMessageAsync(userMessage);
-                //CallDeferred(nameof(AppendToChat), $"Llama: {response}\n");
+                var response = await _session.SendMessageAsync(userMessage);
+                GD.PrintErr($"[AI][Chat] Response: '{response}'");
             }
             catch (Exception ex)
             {
                 GD.PrintErr($"[AI][Chat] Error: {ex.Message}\n{ex.StackTrace}");
-                CallDeferred(nameof(AppendToChat), $"[Error]: {ex.Message}\n");
+                AppendToChatDeferred($"[Error]: {ex.Message}\n");
             }
         }
         catch (Exception ex)
         {
             GD.PrintErr($"[AI][Chat] Task Error: {ex.Message}\n{ex.StackTrace}");
-            AppendToChat($"[Error]: {ex.Message}\n");
+            AppendToChatDeferred($"[Error]: {ex.Message}\n");
         }
     }
 
@@ -142,10 +142,16 @@ public partial class AiScene : Control
         PopulateOllamaProcessList();
     }
 
-    private void AppendToChat(string text)
+    // Call through deferred only
+    private void AppendToChatRaw(string text)
     {
         TextChatHistory.Text += text;
         TextChatHistory.ScrollVertical = int.MaxValue;
+    }
+
+    private void AppendToChatDeferred(string text)
+    {
+          CallDeferred(nameof(AppendToChatRaw), text);
     }
 
     private void OnProcessCellSelected()
