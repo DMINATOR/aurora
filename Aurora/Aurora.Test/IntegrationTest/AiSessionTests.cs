@@ -46,13 +46,13 @@ namespace Aurora.Test.IntegrationTest
         }
 
         [Fact]
-        public void SendMessage_Success()
+        public async Task SendMessage_Success()
         {
             // Arrange
             var message = "Hello, what are the most beautiful colors?";
 
             // Act
-            var response = _session.SendMessage(message);
+            var response = await _session.SendMessageAsync(message);
             _output.WriteLine($"Response: {response}");
             _output.WriteLine($"Tokens received: {string.Join(", ", _tokenReceived)}");
 

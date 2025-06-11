@@ -89,8 +89,7 @@ public partial class AiScene : Control
             {
                 if (token != null)
                 {
-                    // token do later
-                    //GD.Print($"[AI]: {message}");
+                    CallDeferred(nameof(AppendToChat), $"{token}");
                 }
             }
         };
@@ -107,7 +106,7 @@ public partial class AiScene : Control
         PopulateOllamaProcessList();
     }
 
-    private void ButtonSendPressed()
+    private async void ButtonSendPressed()
     {
         if (_session == null || string.IsNullOrWhiteSpace(LineEditUserInput.Text))
             return;
@@ -119,12 +118,21 @@ public partial class AiScene : Control
 
         try
         {
-            var response = _session.SendMessage(userMessage);
-            AppendToChat($"Llama: {response}\n");
+
+            try
+            {
+                var response = await _session.SendMessageAsync(userMessage);
+                CallDeferred(nameof(AppendToChat), $"Llama: {response}\n");
+            }
+            catch (Exception ex)
+            {
+                GD.PrintErr($"[AI][Chat] Error: {ex.Message}\n{ex.StackTrace}");
+                CallDeferred(nameof(AppendToChat), $"[Error]: {ex.Message}\n");
+            }
         }
         catch (Exception ex)
         {
-            GD.PrintErr($"[AI][Chat] Error: {ex.Message}\n{ex.StackTrace}");
+            GD.PrintErr($"[AI][Chat] Task Error: {ex.Message}\n{ex.StackTrace}");
             AppendToChat($"[Error]: {ex.Message}\n");
         }
     }

@@ -44,11 +44,11 @@ namespace AuroraLib.AI
             }
         }
 
-        public string SendMessage(string message)
+        public async Task<string> SendMessageAsync(string message)
         {
             var wrappedMessage = _model.WrapMessage(message); // Apply model-specific wrapping to the message
 
-            var response = _client.SendMessageAsync(wrappedMessage).Result;
+            var response = await _client.SendMessageAsync(wrappedMessage);
             return response;
         }
        
