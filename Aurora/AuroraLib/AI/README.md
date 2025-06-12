@@ -10,6 +10,49 @@ First the ollama needs to be downloaded;
 - Release `ollama-windows-amd64.zip` from <https://github.com/ollama/ollama/releases/tag/v0.6.8>
 - Download and unpack to a folder contents
 
+## Running via endpoint api
+
+- [See API for complete reference.](https://github.com/ollama/ollama/blob/main/docs/api.md)
+
+### Get list of local models:
+
+- [Reference - get tags](https://github.com/ollama/ollama/blob/main/docs/api.md#list-local-models)
+
+Request:
+
+```curl
+curl http://localhost:11434/api/tags
+```
+
+Response:
+
+```json
+{
+  "models": [
+    {
+      "name": "phi4-mini:latest",
+      "model": "phi4-mini:latest",
+      "modified_at": "2025-05-15T22:53:48.1099388+03:00",
+      "size": 2491876774,
+      "digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "phi3",
+        "families": [
+          "phi3"
+        ],
+        "parameter_size": "3.8B",
+        "quantization_level": "Q4_K_M"
+      }
+    }
+  ]
+}
+```
+
+- In this case the phi4-model is installed.
+
+
 ## Running via CLI
 
 `ollama.exe` can be used as a standalone CLI
