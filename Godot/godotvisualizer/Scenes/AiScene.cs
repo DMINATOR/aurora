@@ -7,7 +7,7 @@ using System.Linq;
 
 public partial class AiScene : Control
 {
-    private AiSession _session;
+   // private AiSession _session;
 
     private TextEdit TextOllamaPath;
 
@@ -54,8 +54,10 @@ public partial class AiScene : Control
 
         foreach (var process in processes)
         {
-            if( process == null || process.HasExited)
+            if (process == null || process.HasExited)
+            {
                 continue;
+            }
 
             var item = TreeProcesses.CreateItem(root);
             item.SetText(0, process.Id.ToString()); // PID
@@ -95,45 +97,93 @@ public partial class AiScene : Control
         };
 
         GD.Print($"[AI]: Starting session");
-        _session = new AiSession(config);
+       // _session = new AiSession(config);
         PopulateOllamaProcessList();
     }
 
     private void ButtonStopServerPressed()
     {
         GD.Print($"[AI]: Stopping session");
-        _session.Dispose();
+        //_session.Dispose();
         PopulateOllamaProcessList();
     }
 
+    /// <summary>
+    /// Handles the Send button press event. Sends a prompt to the AI server and appends the response to the chat.
+    /// </summary>
     private async void ButtonSendPressed()
     {
-        if (_session == null || string.IsNullOrWhiteSpace(LineEditUserInput.Text))
-            return;
-
         var userMessage = LineEditUserInput.Text.Trim();
+
+        if (string.IsNullOrWhiteSpace(userMessage))
+        {
+            return;
+        }
+
         LineEditUserInput.Text = string.Empty;
 
         AppendToChatDeferred($"You: {userMessage}\n");
-        TextChatHistory.Text += "\n"; // Add a new line for better readability
+        TextChatHistory.Text += "\n";
 
         try
         {
-            try
-            {
-                var response = await _session.SendMessageAsync(userMessage);
-                GD.PrintErr($"[AI][Chat] Response: '{response}'");
-            }
-            catch (Exception ex)
-            {
-                GD.PrintErr($"[AI][Chat] Error: {ex.Message}\n{ex.StackTrace}");
-                AppendToChatDeferred($"[Error]: {ex.Message}\n");
-            }
+            var aiResponse = await SendPromptToAiServerAsync(userMessage);
+            AppendToChatDeferred($"AI: {aiResponse}\n");
         }
         catch (Exception ex)
         {
-            GD.PrintErr($"[AI][Chat] Task Error: {ex.Message}\n{ex.StackTrace}");
+            GD.PrintErr($"[AI][Chat] Error: {ex.Message}\n{ex.StackTrace}");
             AppendToChatDeferred($"[Error]: {ex.Message}\n");
+        }
+    }
+
+    /// <summary>
+    /// Sends a prompt to the AI server and returns the response as a string using streaming.
+    /// </summary>
+    /// <param name="prompt">The prompt to send to the AI server.</param>
+    /// <returns>The response from the AI server as a string.</returns>
+    private async System.Threading.Tasks.Task<string> SendPromptToAiServerAsync(string prompt)
+    {
+        using (var httpClient = new System.Net.Http.HttpClient())
+        {
+            var requestUri = "http://localhost:11434/api/generate";
+            var requestBody = new
+            {
+                model = "phi4-mini:latest",
+                prompt = prompt,
+                stream = true
+            };
+
+            var json = System.Text.Json.JsonSerializer.Serialize(requestBody);
+
+            using (var content = new System.Net.Http.StringContent(json, System.Text.Encoding.UTF8, "application/json"))
+            {
+                // Use overload with HttpCompletionOption for streaming
+                var response = await httpClient.PostAsync(requestUri, content, System.Threading.CancellationToken.None);
+                if (response.IsSuccessStatusCode)
+                {
+                    using (var stream = await response.Content.ReadAsStreamAsync())
+                    using (var reader = new System.IO.StreamReader(stream))
+                    {
+                        string line;
+                        string result = string.Empty;
+                        while ((line = await reader.ReadLineAsync()) != null)
+                        {
+                            if (!string.IsNullOrWhiteSpace(line))
+                            {
+                                // Optionally, parse JSON line here to extract the actual text
+                                result += line + "\n";
+                                AppendToChatDeferred($"AI: {line}\n");
+                            }
+                        }
+                        return result;
+                    }
+                }
+                else
+                {
+                    throw new Exception($"{response.StatusCode} {response.ReasonPhrase}");
+                }
+            }
         }
     }
 
