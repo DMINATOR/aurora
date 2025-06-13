@@ -6,6 +6,16 @@ Module for performing AI operations
 
 First the ollama needs to be downloaded;
 
+Available models:
+
+| **Model**               | **Size**  | **Context Length** | **Precision** | **Notes** |
+|-------------------------|----------|--------------------|--------------|-----------|
+| phi4-mini:latest       | 2.5GB    | 128K               | Standard FP  | General-purpose version |
+| phi4-mini:3.8b         | 2.5GB    | 128K               | Standard FP  | Same as `latest`, explicitly labeled with parameter count |
+| phi4-mini:3.8b-q4_K_M  | 2.5GB    | 128K               | **Quantized (Q4)** | Optimized for lower memory usage |
+| phi4-mini:3.8b-q8_0    | 4.1GB    | **4K**             | **Quantized (Q8)** | Higher precision but lower context length |
+| phi4-mini:3.8b-fp16    | **7.7GB** | **4K**             | **Full FP16** | Highest precision, largest memory footprint |
+
 - <https://github.com/ollama/ollama/blob/main/docs/windows.md#standalone-cli>
 - Release `ollama-windows-amd64.zip` from <https://github.com/ollama/ollama/releases/tag/v0.6.8>
 - Download and unpack to a folder contents
@@ -78,3 +88,9 @@ this topic!
 ```
 
 - To exit, type `/bye` in the prompt and `ctrl-c` to stop the server.
+
+## Troubleshooting
+
+- Installation path - `explorer %HOMEPATH%\.ollama`
+
+- [Troubleshooting guide](https://www.llamafactory.cn/ollama-docs/en/troubleshooting.html)
